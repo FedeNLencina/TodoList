@@ -1,10 +1,10 @@
 {
-  "name": "TodoList",
+  "name": "todo-list",
   "version": "1.0.0",
   "description": "Aplicacion web la cual se encarga de crear listas de tareas a realizar en pantalla",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",

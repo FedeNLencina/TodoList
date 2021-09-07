@@ -1,17 +1,18 @@
 //llamo a todos los modulos con el metodo requiere
 const express = require ('express');
-const path = requiere('path');
-const exphbs =requiere('express-handlebars');
-const methodOverride = requiere('method-override');
-const expressSession = requiere('express-session');
+const path = require('path');
+const exphbs =require('express-handlebars');
+const methodOverride = require('method-override');
+const expressSession = require('express-session');
 
 
 //Initializations
 const app = express();
+require('./database');
 
 //Settings (iran configuraciones)
 app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(_dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 
 //configuro handelbars
 app.engine('.hbs', exphbs({
@@ -34,22 +35,24 @@ app.use(express.urlencoded({extended : false}));
 //Configuro el method-override. Esto es para que los formularios manden muchos metodos como put y delete.
 app.use(methodOverride('_method'));
 
-//
+
 app.use(expressSession({
     //se inicializan estos valores por defecto
     secret: 'mySecretApp',
     resave: true,
     saveUninitialized: true
-}))
+}));
 //Global Variables (ciertos datos accesibles para la app)
 
 
-//Routes
-
-
+//Routes(url que iran en carpeta route)Aca coloco las rutas para que utilice
+//si los archivos estan vacios van a dar error entonces hago requieres en esos archivos.
+app.use(require('./routes/index'));
+app.use(require('./routes/notes'));
+app.use(require('./routes/users'));
 
 //Static Files
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 //Server is listening 
